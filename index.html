@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Word Guess Game</title>
+</head>
+
+<body>
+    <header class="container text-center ">
+        <h1 id="title" class="display-1">HangAnimal!</h1>
+    </header>
+
+    <div class="container" id="game-box">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Press any key to begin!</h2>
+                <h2>Wins: <span id="wins"></span></h2>
+                <h2>Current word: <span id="current-word"></span></h2>
+                <h2>Guessed characters: <span id="guessed-chars"></span></h2>
+                <h2>Guesses left: <span id="guesses-left"></span></h2>
+            </div>
+            <div id="end-game-text" class="col-md-6 display-2"></div>
+        </div>
+    </div>
+
+    <div id="picture" class="container"></div>
+
+    <script src="./assets/javascript/game.js"></script>
+</body>
+
+</html>
