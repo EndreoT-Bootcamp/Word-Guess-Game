@@ -69,6 +69,7 @@ const game = {
         this.wordMap = new Map();
         this.guessedCharSet = new Set();
         this.correctNumChars = 0;
+        this.guessesLeft = allowedGuesses;
         this.makeWordMap();
         this.initCorrectGuessesArray();
     },
