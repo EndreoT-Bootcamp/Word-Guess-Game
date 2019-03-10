@@ -155,9 +155,11 @@ initGame();
 // Main game function
 document.onkeyup = function WordGuessGame(event) {
     const guess = event.key;
+    const endGameText = document.getElementById("end-game-text");
 
     if (game.gameState.finished) { // Reset game
         game.initGame();
+        endGameText.textContent = "";
         const animalPic = document.getElementById("animalImg");
         if (animalPic) {
             animalPic.parentNode.removeChild(animalPic);
@@ -167,7 +169,7 @@ document.onkeyup = function WordGuessGame(event) {
     game.playRound(guess);
 
     if (game.gameState.finished) { // Game is finished
-        const endGameText = document.getElementById("end-game-text");
+        
         if (game.gameState.win) {
             endGameText.textContent = "You Win!"
 
