@@ -57,9 +57,9 @@ const game = {
         }
     },
 
-    initGame() {
+    initGame(isFinished) {
         // Initializes game
-        this.setGameState(false, false, false);
+        this.setGameState(isFinished, false, false);
 
         // Picks a random word from words
         const wordKeys = Object.keys(words);
@@ -92,10 +92,6 @@ const game = {
         this.gameState.loss = loss
     },
 
-    showWord() {
-        this.correctGuesses = this.currentWord.split("");
-    },
-
     playRound(char) {
         if (this.guessedCharSet.has(char)) {
             // Char already guessed
@@ -123,7 +119,6 @@ const game = {
             if (this.guessesLeft === 0) {
                 // Loss
                 this.setGameState(true, false, true);
-                this.showWord()
             }
         }
     }
@@ -146,7 +141,7 @@ function showGameState(game) {
 
 // Initializes game before any key press
 function initGame() {
-    game.initGame();
+    game.initGame(false);
     showGameState(game);
 };
 
@@ -157,31 +152,53 @@ document.onkeyup = function WordGuessGame(event) {
     const guess = event.key;
     const endGameText = document.getElementById("end-game-text");
 
-    if (game.gameState.finished) { // Reset game
-        game.initGame();
+    if (game.gameState.finished) { 
+        // Resets display
         endGameText.textContent = "";
+
         const animalPic = document.getElementById("animalImg");
         if (animalPic) {
             animalPic.parentNode.removeChild(animalPic);
         }
+
+        const animalName = document.getElementById("animalName");
+        if (animalName) {
+            animalName.parentNode.removeChild(animalName);
+        }
+
+        game.setGameState(false, false, false)
     }
 
     game.playRound(guess);
 
     if (game.gameState.finished) { // Game is finished
+
+        const div = document.getElementById("animal");
         
+        let animal = words[game.currentWord].name;
+        animal = animal.charAt(0).toUpperCase() + animal.slice(1);
+        const name = document.createElement("h2");
+        name.setAttribute("id", "animalName");
+
+        const imagePath = words[game.currentWord].url;
+        const image = document.createElement("img");
+        image.setAttribute("id", "animalImg");
+        
+        let lossText = "";
         if (game.gameState.win) {
             endGameText.textContent = "You Win!"
-
-            const imagePath = words[game.currentWord].url;
-            const image = document.createElement("img");
-            image.setAttribute("id", "animalImg");
-            image.src = imagePath;
-            const div = document.getElementById("picture");
-            div.appendChild(image);
         } else {
             endGameText.textContent = "You Lose!"
+            lossText = "The correct word is: "
         }
+        
+        image.src = imagePath;
+        div.appendChild(image);
+        name.textContent = lossText + animal
+        div.appendChild(name);
+
+        // Reset game
+        game.initGame(true);
     }
 
     showGameState(game);
